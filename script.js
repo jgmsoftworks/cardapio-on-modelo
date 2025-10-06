@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (imageCache[categoryName] && imageCache[categoryName].length >= count) {
             return imageCache[categoryName];
         }
-         if (UNSPLASH_API_KEY === 'SUA_CHAVE_DE_API_AQUI') {
+         if (UNSPLASH_API_KEY === 'SUA_CHAVE_DE_API_AQUI' || !UNSPLASH_API_KEY) {
              console.warn("API Key do Unsplash não configurada. Usando imagens de placeholder.");
              return Array(count).fill(null).map((_, i) => `https://placehold.co/220x220/1a1a1a/ffffff?text=${encodeURIComponent(categoryName)}+${i+1}`);
         }
@@ -214,7 +214,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const renderMenuItems = async (searchTerm = '') => {
-        menuItemsContainer.innerHTML = '<div class="loader"></div>'; // Mostra um loader enquanto carrega
+        menuItemsContainer.innerHTML = '<div class="loader"></div>';
         let productsToShow;
         let categoryName = 'Resultados da Busca';
 
@@ -451,12 +451,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --- LÓGICA DO TEMA (CLARO/ESCURO) ---
-    const renderLucideIcons = () => {
-        if (window.lucide && typeof window.lucide.createIcons === 'function') {
-            window.lucide.createIcons();
-        }
-    };
-
     const applyTheme = (theme) => {
         if (theme === 'light') {
             document.body.classList.add('light-theme');
@@ -465,7 +459,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.classList.remove('light-theme');
             themeToggleBtn.innerHTML = '<i data-lucide="sun"></i>';
         }
-        renderLucideIcons(); // Recria os ícones após mudar o HTML
+        lucide.createIcons();
     };
 
     const toggleTheme = () => {
@@ -482,7 +476,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const savedTheme = localStorage.getItem('aurumTheme') || 'dark';
         applyTheme(savedTheme);
         renderAll();
-        renderLucideIcons();
     };
     
     const renderAll = () => {
