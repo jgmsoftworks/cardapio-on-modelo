@@ -287,7 +287,10 @@ body {
     visibility: hidden;
     transition: opacity 0.4s ease, visibility 0.4s ease;
 }
-.wine-modal:not(.hidden) { opacity: 1; visibility: visible; }
+.wine-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
 .wine-modal-content {
     max-width: 1280px;
     margin: 2rem auto;
