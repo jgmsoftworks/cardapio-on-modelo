@@ -7,83 +7,76 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
-    <div class="background-animation"></div>
 
-    <div class="container">
+    <div id="app-container">
         <header class="main-header">
-            <div class="header-content">
-                <img src="https://placehold.co/100x100/D4AC6E/121212?text=Au" alt="Logo Aurum" class="logo">
-                <div>
-                    <h1 class="restaurant-name">Aurum</h1>
-                    <p class="restaurant-status">Aberto até às 23:00</p>
+            <div class="logo">
+                <span class="logo-icon">Au</span>
+                <div class="logo-text">
+                    <h1>Aurum</h1>
+                    <p>Aberto até às 23:00</p>
                 </div>
-                <button class="wine-menu-btn" id="openWineModalBtn">
-                    <i data-lucide="wine"></i>
-                    <span>Carta de Vinhos</span>
-                </button>
             </div>
-            <div class="search-wrapper">
-                <i data-lucide="search" class="search-icon"></i>
-                <input type="text" id="searchInput" class="search-input" placeholder="Buscar no menu...">
+            <div class="header-actions">
+                 <div class="search-bar">
+                    <i data-lucide="search"></i>
+                    <input type="text" id="searchInput" placeholder="Buscar no menu...">
+                </div>
+                <button id="openWineModalBtn" class="wine-modal-btn">
+                    <i data-lucide="wine"></i> Carta de Vinhos
+                </button>
             </div>
         </header>
 
-        <nav class="category-nav">
-            <div id="mainCategoryLinks" class="main-category-container"></div>
-            <div id="subCategoryLinks" class="sub-category-container"></div>
+        <nav class="main-nav">
+            <div id="mainCategoryLinks" class="main-categories"></div>
+            <div id="subCategoryLinks" class="sub-categories"></div>
         </nav>
-        
+
         <main class="menu-content">
             <h2 id="categoryTitle" class="category-title"></h2>
-            <div id="menuItems" class="menu-items-grid">
-                <!-- Os itens do menu serão inseridos aqui pelo JavaScript -->
+            <div id="menuItems" class="menu-grid">
+                <!-- Itens do menu serão inseridos aqui pelo JavaScript -->
             </div>
-            <p id="noResults" class="no-results">Nenhum item encontrado.</p>
+            <p id="noResults" class="no-results" style="display: none;">Nenhum item encontrado.</p>
         </main>
     </div>
 
-    <footer class="floating-footer">
-        <button id="cartButton" class="cart-button">
-            <i data-lucide="shopping-cart"></i>
-            <span id="cartCount" class="cart-count">0</span>
-        </button>
-    </footer>
-
-    <!-- MODAL CARTA DE VINHOS -->
-    <div class="modal-overlay" id="wineModal">
-        <div class="modal-content">
-            <header class="modal-header">
-                <h2>Nossa Seleção de Vinhos</h2>
-                <button class="close-modal-btn" id="closeWineModalBtn"><i data-lucide="x" style="width: 32px; height: 32px;"></i></button>
-            </header>
-            <div class="modal-body">
-                <nav id="wineRegionNav" class="wine-region-nav"></nav>
-                <div class="wine-filters">
+    <!-- Modal: Carta de Vinhos -->
+    <div id="wineModal" class="modal-overlay">
+        <div class="modal-content wine-modal-content">
+            <button id="closeWineModalBtn" class="close-modal-btn">&times;</button>
+            <h2 class="modal-title">Nossa Seleção de Vinhos</h2>
+            <nav id="wineRegionNav" class="wine-region-nav"></nav>
+            <div class="wine-filters">
+                <div class="filter-group">
                     <label for="wineGrapeFilter">Filtrar por Uva:</label>
                     <select id="wineGrapeFilter"></select>
+                </div>
+                <div class="filter-group">
                     <label for="winePairingFilter">Harmonização:</label>
                     <select id="winePairingFilter"></select>
                 </div>
-                <div id="wineItemsGrid" class="wine-items-grid"></div>
+            </div>
+            <div id="wineItemsGrid" class="wine-items-grid">
+                <!-- Vinhos serão inseridos aqui -->
             </div>
         </div>
     </div>
-
-    <!-- MODAL DETALHES DO PRATO -->
-    <div class="modal-overlay" id="detailsModal">
-        <div class="modal-content">
-             <header class="modal-header">
-                <h2>Detalhes do Prato</h2>
-                <button class="close-modal-btn" id="closeDetailsModalBtn"><i data-lucide="x" style="width: 32px; height: 32px;"></i></button>
-            </header>
-            <div class="modal-body" id="detailsModalBody">
-                <!-- Conteúdo dos detalhes do prato inserido pelo JS -->
-            </div>
-        </div>
+    
+    <!-- Modal: Detalhes do Prato -->
+    <div id="detailsModal" class="modal-overlay">
+         <div class="modal-content details-modal-content">
+            <button id="closeDetailsModalBtn" class="close-modal-btn">&times;</button>
+            <h2 class="modal-title">Detalhes do Prato</h2>
+             <div id="detailsModalBody">
+                <!-- Detalhes do prato serão inseridos aqui -->
+             </div>
+         </div>
     </div>
 
 
