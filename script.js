@@ -41,44 +41,44 @@ document.addEventListener('DOMContentLoaded', () => {
         ],
         products: [
             // Entradas
-            { id: 1, category: 'entradas', name: 'Carpaccio', description: 'Finas fatias de carne crua, temperadas com alcaparras, queijo parmesão e um molho especial de mostarda e azeite.', price: 59.90, image: 'https://placehold.co/400x300/1a1a1a/D4AC6E?text=Carpaccio', pairing: ['Branco Leve', 'Espumante'] },
-            { id: 2, category: 'entradas', name: 'Ceviche Clássico', description: 'Cubos de peixe branco fresco marinados em sumo de limão, coentros, cebola roxa e um toque de pimenta.', price: 54.90, image: 'https://placehold.co/400x300/1a1a1a/D4AC6E?text=Ceviche', pairing: ['Branco Cítrico', 'Rosé'] },
+            { id: 1, category: 'entradas', name: 'Carpaccio', description: 'Finas fatias de carne crua, temperadas com alcaparras, queijo parmesão e um molho especial de mostarda e azeite.', price: 59.90, image: 'https://images.unsplash.com/photo-1598515214211-89d3c7373058?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80', pairing: ['Branco Leve', 'Espumante'] },
+            { id: 2, category: 'entradas', name: 'Ceviche Clássico', description: 'Cubos de peixe branco fresco marinados em sumo de limão, coentros, cebola roxa e um toque de pimenta.', price: 54.90, image: 'https://images.unsplash.com/photo-1574960810343-6232a321c172?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80', pairing: ['Branco Cítrico', 'Rosé'] },
 
             // Saladas
-            { id: 4, category: 'saladas', name: 'Salada Caesar com Camarão', description: 'Alface romana, croutons, queijo parmesão e camarões grelhados ao molho Caesar tradicional.', price: 46.90, image: 'https://placehold.co/400x300/1a1a1a/D4AC6E?text=Salada+Caesar', pairing: ['Branco Leve', 'Sauvignon Blanc'] },
+            { id: 4, category: 'saladas', name: 'Salada Caesar com Camarão', description: 'Alface romana, croutons, queijo parmesão e camarões grelhados ao molho Caesar tradicional.', price: 46.90, image: 'https://images.unsplash.com/photo-1551248429-40974011e722?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80', pairing: ['Branco Leve', 'Sauvignon Blanc'] },
 
             // Chapas e Cortes
-            { id: 7, category: 'chapas', name: 'Chapa Mista Aurum', description: 'Seleção nobre de picanha, filet mignon, peito de frango e linguiça artesanal, servida na chapa com batata frita e farofa.', price: 169.90, image: 'https://placehold.co/400x300/1a1a1a/D4AC6E?text=Chapa+Mista', chefSuggestion: true, pairing: ['Tinto Encorpado', 'Malbec'] },
+            { id: 7, category: 'chapas', name: 'Chapa Mista Aurum', description: 'Seleção nobre de picanha, filet mignon, peito de frango e linguiça artesanal, servida na chapa com batata frita e farofa.', price: 169.90, image: 'https://images.unsplash.com/photo-1623341214825-9f4f963727da?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80', chefSuggestion: true, pairing: ['Tinto Encorpado', 'Malbec'] },
 
             // Petiscos
-            { id: 11, category: 'petiscos', name: 'Batata Frita com Alecrim e Sal Grosso', description: 'Batatas crocantes por fora e macias por dentro, com um toque aromático de alecrim fresco.', price: 39.90, image: 'https://placehold.co/400x300/1a1a1a/D4AC6E?text=Batata+Frita', pairing: ['Cerveja', 'Espumante'] },
+            { id: 11, category: 'petiscos', name: 'Batata Frita com Alecrim e Sal Grosso', description: 'Batatas crocantes por fora e macias por dentro, com um toque aromático de alecrim fresco.', price: 39.90, image: 'https://images.unsplash.com/photo-1630384060421-cb20d0e06399?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80', pairing: ['Cerveja', 'Espumante'] },
 
              // Para Compartilhar
-            { id: 17, category: 'compartilhar', name: 'Ancho Supremo', description: 'Generoso Bife Ancho grelhado na perfeição, acompanhado de queijo coalho tostado e mandioca cremosa.', price: 159.90, image: 'https://placehold.co/400x300/1a1a1a/D4AC6E?text=Ancho+Supremo', chefSuggestion: true, pairing: ['Tinto Encorpado', 'Cabernet Sauvignon'] },
+            { id: 17, category: 'compartilhar', name: 'Ancho Supremo', description: 'Generoso Bife Ancho grelhado na perfeição, acompanhado de queijo coalho tostado e mandioca cremosa.', price: 159.90, image: 'https://images.unsplash.com/photo-1600891964092-4316c288032e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80', chefSuggestion: true, pairing: ['Tinto Encorpado', 'Cabernet Sauvignon'] },
             
             // Acompanhamentos
             { id: 20, category: 'acompanhamentos', name: 'Arroz Biro-Biro', description: 'Uma mistura irresistível de arroz, ovos mexidos, bacon crocante, batata palha e um toque de salsa.', price: 26.90, image: 'https://placehold.co/400x300/1a1a1a/D4AC6E?text=Arroz+Biro-Biro' },
 
             // Para Dois
-            { id: 23, category: 'pratos_dois', name: 'Carne de Sol do Sertão', description: 'Carne de sol de primeira qualidade, desfiada e refogada na manteiga de garrafa. Acompanha arroz com brócolis e puré de abóbora.', price: 149.90, image: 'https://placehold.co/400x300/1a1a1a/D4AC6E?text=Carne+de+Sol', pairing: ['Tinto Médio', 'Cerveja'] },
+            { id: 23, category: 'pratos_dois', name: 'Carne de Sol do Sertão', description: 'Carne de sol de primeira qualidade, desfiada e refogada na manteiga de garrafa. Acompanha arroz com brócolis e puré de abóbora.', price: 149.90, image: 'https://images.unsplash.com/photo-1645515291209-785945a557c3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80', pairing: ['Tinto Médio', 'Cerveja'] },
 
             // Individuais
-            { id: 25, category: 'pratos_individuais', name: 'Bife Ancho Individual', description: '350g do mais suculento Bife Ancho, grelhado ao ponto desejado. Acompanha farofa de ovos e molho chimichurri.', price: 79.90, image: 'https://placehold.co/400x300/1a1a1a/D4AC6E?text=Bife+Ancho', pairing: ['Tinto Encorpado', 'Malbec'] },
+            { id: 25, category: 'pratos_individuais', name: 'Bife Ancho Individual', description: '350g do mais suculento Bife Ancho, grelhado ao ponto desejado. Acompanha farofa de ovos e molho chimichurri.', price: 79.90, image: 'https://images.unsplash.com/photo-1594041684533-7d5a5b542b30?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80', pairing: ['Tinto Encorpado', 'Malbec'] },
 
             // Hambúrgueres
-            { id: 27, category: 'burgers', name: 'Aurum Burger', description: 'Hambúrguer de 180g de blend Angus, queijo cheddar maturado, bacon crocante e maionese de ervas no pão brioche.', price: 36.90, image: 'https://placehold.co/400x300/1a1a1a/D4AC6E?text=Aurum+Burger', chefSuggestion: true, pairing: ['Cerveja', 'Tinto Leve'] },
+            { id: 27, category: 'burgers', name: 'Aurum Burger', description: 'Hambúrguer de 180g de blend Angus, queijo cheddar maturado, bacon crocante e maionese de ervas no pão brioche.', price: 36.90, image: 'https://images.unsplash.com/photo-1571091718767-18b5b1457add?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80', chefSuggestion: true, pairing: ['Cerveja', 'Tinto Leve'] },
            
             // Bebidas
-            { id: 33, category: 'chopp', name: 'Chopp Império Lager', description: 'Chopp pilsen de baixa fermentação, leve, cremoso e refrescante.', price: 11.90, image: 'https://placehold.co/400x300/1a1a1a/D4AC6E?text=Chopp+Império' },
+            { id: 33, category: 'chopp', name: 'Chopp Império Lager', description: 'Chopp pilsen de baixa fermentação, leve, cremoso e refrescante.', price: 11.90, image: 'https://images.unsplash.com/photo-1586993451228-098b8b211445?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80' },
             { id: 43, category: 'combos', name: 'Combo Old Parr', description: 'Uma garrafa de Whisky Old Parr 12 anos acompanhada de 6 energéticos Red Bull.', price: 440.00, image: 'https://placehold.co/400x300/1a1a1a/D4AC6E?text=Combo+Old+Parr' },
-            { id: 46, category: 'shots', name: 'Licor 43', description: 'Dose do famoso licor espanhol, conhecido pelas suas 43 especiarias secretas.', price: 17.90, image: 'https://placehold.co/400x300/1a1a1a/D4AC6E?text=Licor+43' },
-            { id: 48, category: 'destilados', name: 'Gin Tanqueray', description: 'A dose perfeita do clássico London Dry Gin, servido à sua preferência.', price: 17.00, image: 'https://placehold.co/400x300/1a1a1a/D4AC6E?text=Gin+Tanqueray' },
+            { id: 46, category: 'shots', name: 'Licor 43', description: 'Dose do famoso licor espanhol, conhecido pelas suas 43 especiarias secretas.', price: 17.90, image: 'https://images.unsplash.com/photo-1623932982136-2479f6a2e40b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80' },
+            { id: 48, category: 'destilados', name: 'Gin Tanqueray', description: 'A dose perfeita do clássico London Dry Gin, servido à sua preferência.', price: 17.00, image: 'https://images.unsplash.com/photo-1614834139283-01ab1a19616d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80' },
             { id: 50, category: 'whisky', name: 'Johnnie Walker Red Label', description: 'Dose ou Garrafa do pioneiro blend da Johnnie Walker.', price: 20.00, image: 'https://placehold.co/400x300/1a1a1a/D4AC6E?text=Red+Label' },
-            { id: 56, category: 'caipirinhas', name: 'Caipirinha de Cachaça Leblon', description: 'A autêntica caipirinha brasileira com cachaça Leblon, limão fresco e açúcar.', price: 15.90, image: 'https://placehold.co/400x300/1a1a1a/D4AC6E?text=Caipirinha' },
-            { id: 59, category: 'drinks_autorais', name: 'Aurum & Berries', description: 'Drink autoral com gin, morango, amora, sumo de limão tahiti e um toque de creme de cassis.', price: 36.90, image: 'https://placehold.co/400x300/1a1a1a/D4AC6E?text=Aurum+Berries', chefSuggestion: true },
+            { id: 56, category: 'caipirinhas', name: 'Caipirinha de Cachaça Leblon', description: 'A autêntica caipirinha brasileira com cachaça Leblon, limão fresco e açúcar.', price: 15.90, image: 'https://images.unsplash.com/photo-1551538855-58c4f1a239fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80' },
+            { id: 59, category: 'drinks_autorais', name: 'Aurum & Berries', description: 'Drink autoral com gin, morango, amora, sumo de limão tahiti e um toque de creme de cassis.', price: 36.90, image: 'https://images.unsplash.com/photo-1607610534292-b8a3e7b89e3a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80', chefSuggestion: true },
             { id: 62, category: 'drinks_gin', name: 'Árvore de Gins Clássicos', description: 'Uma experiência para compartilhar: gin laranja, gin tangerina, gin limão siciliano e gin maracujá.', price: 109.90, image: 'https://placehold.co/400x300/1a1a1a/D4AC6E?text=Árvore+Gins' },
-            { id: 64, category: 'drinks_gerais', name: 'Aperol Spritz', description: 'O clássico aperitivo italiano: Aperol, espumante brut, água com gás e uma fatia de laranja.', price: 32.90, image: 'https://placehold.co/400x300/1a1a1a/D4AC6E?text=Aperol+Spritz' },
-            { id: 67, category: 'nao_alcoolicos', name: 'Suco de Laranja Natural', description: 'Sumo de laranja espremido na hora, sem adição de açúcar.', price: 13.90, image: 'https://placehold.co/400x300/1a1a1a/D4AC6E?text=Suco+Laranja' },
+            { id: 64, category: 'drinks_gerais', name: 'Aperol Spritz', description: 'O clássico aperitivo italiano: Aperol, espumante brut, água com gás e uma fatia de laranja.', price: 32.90, image: 'https://images.unsplash.com/photo-1626383383364-a134c264a13e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80' },
+            { id: 67, category: 'nao_alcoolicos', name: 'Suco de Laranja Natural', description: 'Sumo de laranja espremido na hora, sem adição de açúcar.', price: 13.90, image: 'https://images.unsplash.com/photo-1613482228335-b108b3e37452?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80' },
             { id: 95, category: 'menu_executivo', name: 'Ancho Oswaldo Aranha', description: 'Bife Ancho de 200g coberto com alho frito, acompanhado de arroz branco, farofa de ovos e batata portuguesa.', price: 52.90, image: 'https://placehold.co/400x300/1a1a1a/D4AC6E?text=Ancho', pairing: ['Tinto Médio', 'Malbec'] },
         ]
     };
@@ -182,7 +182,6 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const renderMenuItems = (searchTerm = '') => {
-        // Adiciona um pequeno delay para a animação de saída (se houver)
         setTimeout(() => {
             menuItemsContainer.innerHTML = '';
             let productsToShow;
@@ -204,24 +203,25 @@ document.addEventListener('DOMContentLoaded', () => {
             productsToShow.forEach((product, index) => {
                 const itemCard = document.createElement('div');
                 itemCard.className = 'item-card';
-                // Adiciona um delay na animação para cada card
                 itemCard.style.animationDelay = `${index * 0.05}s`;
                 itemCard.dataset.productId = product.id;
 
                 const chefSuggestionHTML = product.chefSuggestion ? `
                     <div class="chef-suggestion">
-                        <i data-lucide="crown"></i> Sugestão do Chef
+                        <i data-lucide="crown"></i> Chef
                     </div>
                 ` : '';
 
                 itemCard.innerHTML = `
-                    <div class="item-image-container">
-                        <img src="${product.image}" alt="${product.name}" class="item-image" onerror="this.src='https://placehold.co/400x300/1a1a1a/ffffff?text=Imagem'">
+                    <div class="item-card-image">
+                        <img src="${product.image}" alt="${product.name}" onerror="this.src='https://placehold.co/220x220/1a1a1a/ffffff?text=Aurum'">
                         ${chefSuggestionHTML}
                     </div>
-                    <div class="item-details">
-                        <h3 class="item-name">${product.name}</h3>
-                        <p class="item-description">${product.description.substring(0, 80)}...</p>
+                    <div class="item-card-content">
+                        <div>
+                           <h3 class="item-name">${product.name}</h3>
+                           <p class="item-description">${product.description}</p>
+                        </div>
                         <div class="item-footer">
                             <p class="item-price">R$ ${product.price.toFixed(2).replace('.', ',')}</p>
                             <button class="add-to-cart-btn" data-product-id="${product.id}">+</button>
@@ -233,23 +233,21 @@ document.addEventListener('DOMContentLoaded', () => {
             
             lucide.createIcons();
             
-            // Adiciona listeners aos elementos criados
             document.querySelectorAll('.add-to-cart-btn').forEach(button => {
                 button.addEventListener('click', (e) => {
-                    e.stopPropagation(); // Evita que o clique abra o modal de detalhes
+                    e.stopPropagation();
                     addToCart(button.dataset.productId);
                 });
             });
 
             document.querySelectorAll('.item-card').forEach(card => {
                 card.addEventListener('click', (e) => {
-                    // Impede que o modal abra se o clique foi no botão '+'
                     if (e.target.closest('.add-to-cart-btn')) return;
                     openDetailsModal(card.dataset.productId);
                 });
             });
 
-        }, 150); // Delay de 150ms
+        }, 150);
     };
 
     // --- FUNÇÕES DE RENDERIZAÇÃO (CARTA DE VINHOS) ---
@@ -392,15 +390,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         detailsModalBody.innerHTML = `
-            <img src="${product.image}" alt="${product.name}" class="details-image">
-            <div class="details-info">
-                <h3 class="item-name">${product.name}</h3>
-                <p class="item-description">${product.description}</p>
-                <p class="item-price">R$ ${product.price.toFixed(2).replace('.', ',')}</p>
-                <button class="details-add-to-cart" data-product-id="${product.id}">
-                    <i data-lucide="plus"></i> Adicionar ao Pedido
-                </button>
-                ${pairingHTML}
+            <div class="details-modal-body">
+                <img src="${product.image}" alt="${product.name}" class="details-image">
+                <div class="details-info">
+                    <h3 class="item-name">${product.name}</h3>
+                    <p class="item-description">${product.description}</p>
+                    <p class="item-price">R$ ${product.price.toFixed(2).replace('.', ',')}</p>
+                    <button class="details-add-to-cart" data-product-id="${product.id}">
+                        <i data-lucide="plus"></i> Adicionar ao Pedido
+                    </button>
+                    ${pairingHTML}
+                </div>
             </div>
         `;
 
