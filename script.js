@@ -1,12 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- CHAVE DA API (IMPORTANTE!) ---
-    // Registe-se em https://unsplash.com/developers para obter a sua chave gratuita
-    // e cole-a aqui para que as imagens automáticas funcionem.
-    const UNSPLASH_API_KEY = 'diHk1eYC4w-mm41jPDsJBNmAozLoF8v0kHBpFLtT5BI'; 
+    const UNSPLASH_API_KEY = 'diHk1eYC4w-mm41jPDsJBNmAozLoF8v0kHBpFLtT5BI';
 
     // --- BASE DE DADOS SIMULADA ---
-    // Deixei alguns produtos com "image: null" para que o sistema puxe as fotos automaticamente.
-    // Os outros com links continuarão a usar as imagens que definimos.
     const menuData = {
         mainCategories: [
             {
@@ -122,36 +118,34 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- CACHE DE IMAGENS ---
     const imageCache = {};
 
-    // --- FUNÇÃO PARA BUSCAR IMAGENS AUTOMATICAMENTE ---
-    async function getProductImage(product) {
-        if (product.image && !product.image.includes('placehold.co')) {
-            return product.image;
+    // --- FUNÇÃO OTIMIZADA PARA BUSCAR IMAGENS AUTOMATICAMENTE POR CATEGORIA ---
+    async function fetchImagesForCategory(categoryName, count) {
+        if (imageCache[categoryName] && imageCache[categoryName].length >= count) {
+            return imageCache[categoryName];
         }
-        if (imageCache[product.id]) {
-            return imageCache[product.id];
-        }
-        if (UNSPLASH_API_KEY === 'SUA_CHAVE_DE_API_AQUI') {
-             return `https://placehold.co/220x220/1a1a1a/ffffff?text=${encodeURIComponent(product.name)}`;
+         if (UNSPLASH_API_KEY === 'SUA_CHAVE_DE_API_AQUI') {
+             console.warn("API Key do Unsplash não configurada. Usando imagens de placeholder.");
+             return Array(count).fill(null).map((_, i) => `https://placehold.co/220x220/1a1a1a/ffffff?text=${encodeURIComponent(categoryName)}+${i+1}`);
         }
 
         try {
-            const query = encodeURIComponent(`${product.name} food gourmet`);
-            const response = await fetch(`https://api.unsplash.com/search/photos?query=${query}&per_page=1&client_id=${UNSPLASH_API_KEY}`);
-            if (!response.ok) throw new Error('Falha na requisição à API Unsplash');
-            
+            const query = encodeURIComponent(`${categoryName} gourmet food`);
+            // Pedimos mais imagens do que o necessário para ter variedade
+            const response = await fetch(`https://api.unsplash.com/search/photos?query=${query}&per_page=${count > 20 ? 20 : count}&client_id=${UNSPLASH_API_KEY}`);
+            if (!response.ok) throw new Error(`Erro na API Unsplash: ${response.statusText}`);
+
             const data = await response.json();
             if (data.results && data.results.length > 0) {
-                const imageUrl = data.results[0].urls.regular;
-                imageCache[product.id] = imageUrl;
-                product.image = imageUrl; // Atualiza o objeto do produto para persistir na sessão
-                return imageUrl;
+                const imageUrls = data.results.map(img => img.urls.regular);
+                imageCache[categoryName] = imageUrls;
+                return imageUrls;
             }
         } catch (error) {
-            console.error(`Falha ao buscar imagem para ${product.name}:`, error);
+            console.error(`Falha ao buscar imagens para a categoria ${categoryName}:`, error);
         }
         
-        // Retorno padrão em caso de falha ou se não encontrar imagem
-        return `https://placehold.co/220x220/1a1a1a/ffffff?text=${encodeURIComponent(product.name)}`;
+        // Retorno padrão em caso de falha
+        return Array(count).fill(null).map((_, i) => `https://placehold.co/220x220/1a1a1a/ffffff?text=${encodeURIComponent(categoryName)}+${i+1}`);
     }
 
 
@@ -223,8 +217,10 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const renderMenuItems = async (searchTerm = '') => {
-        menuItemsContainer.innerHTML = ''; // Limpa imediatamente para feedback visual
+        menuItemsContainer.innerHTML = '<div class="loader"></div>'; // Mostra um loader enquanto carrega
         let productsToShow;
+        let categoryName = 'Resultados da Busca';
+
         if (searchTerm) {
             productsToShow = menuData.products.filter(p =>
                 p.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -235,19 +231,36 @@ document.addEventListener('DOMContentLoaded', () => {
             const mainCat = menuData.mainCategories.find(mc => mc.id === activeMainCategory);
             const subCat = mainCat.subCategories.find(sc => sc.id === activeSubCategory);
             productsToShow = menuData.products.filter(p => p.category === activeSubCategory);
-            categoryTitleEl.textContent = subCat ? subCat.name : '';
+            categoryName = subCat ? subCat.name : '';
+            categoryTitleEl.textContent = categoryName;
         }
 
         noResultsEl.style.display = productsToShow.length === 0 ? 'block' : 'none';
+        if(productsToShow.length === 0){
+            menuItemsContainer.innerHTML = '';
+            return;
+        }
 
-        const productPromises = productsToShow.map(async (product, index) => {
-            const imageUrl = await getProductImage(product);
+        // --- Lógica Otimizada de Imagens ---
+        const productsNeedingImage = productsToShow.filter(p => !p.image);
+        if (productsNeedingImage.length > 0) {
+            const fetchedImages = await fetchImagesForCategory(categoryName, productsNeedingImage.length);
+            productsNeedingImage.forEach((product, index) => {
+                // Atribui uma imagem da lista de forma circular para garantir que todos recebam uma
+                product.tempImage = fetchedImages[index % fetchedImages.length];
+            });
+        }
+
+        menuItemsContainer.innerHTML = ''; // Limpa o loader
+
+        productsToShow.forEach((product, index) => {
+            const imageUrl = product.image || product.tempImage || `https://placehold.co/220x220/1a1a1a/ffffff?text=Aurum`;
             const chefSuggestionHTML = product.chefSuggestion ? `<div class="chef-suggestion"><i data-lucide="crown"></i> Chef</div>` : '';
             
-            return `
+            const itemHTML = `
                 <div class="item-card" style="animation-delay: ${index * 0.05}s;" data-product-id="${product.id}">
                     <div class="item-card-image">
-                        <img src="${imageUrl}" alt="${product.name}" onerror="this.src='https://placehold.co/220x220/1a1a1a/ffffff?text=Aurum'">
+                        <img src="${imageUrl}" alt="${product.name}" loading="lazy" onerror="this.src='https://placehold.co/220x220/1a1a1a/ffffff?text=Aurum'">
                         ${chefSuggestionHTML}
                     </div>
                     <div class="item-card-content">
@@ -261,10 +274,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                     </div>
                 </div>`;
+            menuItemsContainer.innerHTML += itemHTML;
         });
-        
-        const renderedHTML = await Promise.all(productPromises);
-        menuItemsContainer.innerHTML = renderedHTML.join('');
         
         lucide.createIcons();
         attachCardEventListeners();
@@ -324,7 +335,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const renderWines = async () => {
-        wineItemsGrid.innerHTML = '';
+        wineItemsGrid.innerHTML = '<div class="loader"></div>';
         
         const selectedGrape = wineGrapeFilter.value;
         const selectedPairing = winePairingFilter.value;
@@ -342,17 +353,27 @@ document.addEventListener('DOMContentLoaded', () => {
             wineItemsGrid.innerHTML = '<p class="no-results" style="display:block;">Nenhum vinho encontrado.</p>';
             return;
         }
+        
+        const winesNeedingImage = winesToShow.filter(w => !w.image);
+        if (winesNeedingImage.length > 0) {
+            const fetchedImages = await fetchImagesForCategory(`garrafa de vinho ${activeWineRegion}`, winesNeedingImage.length);
+            winesNeedingImage.forEach((wine, index) => {
+                wine.tempImage = fetchedImages[index % fetchedImages.length];
+            });
+        }
+        
+        wineItemsGrid.innerHTML = '';
 
-        const winePromises = winesToShow.map(async (wine) => {
-             const imageUrl = await getProductImage(wine); // Reutiliza a função de busca de imagem
-             const tagsHTML = wine.tags.map(tag => {
+        winesToShow.forEach(wine => {
+            const imageUrl = wine.image || wine.tempImage || `https://placehold.co/100x300/1a1a1a/ffffff?text=Vinho`;
+            const tagsHTML = wine.tags.map(tag => {
                 let iconHTML = tag.icon ? `<span>${tag.icon}</span>` : `<i data-lucide="info"></i>`;
                 return `<div class="wine-tag">${iconHTML} ${tag.value}</div>`;
             }).join('');
             
-            return `
+            const wineHTML = `
                 <div class="wine-card">
-                    <img src="${imageUrl}" alt="${wine.name}" class="wine-image">
+                    <img src="${imageUrl}" alt="${wine.name}" class="wine-image" loading="lazy" onerror="this.src='https.placehold.co/100x300/1a1a1a/ffffff?text=Vinho'">
                     <div class="wine-details">
                         <div class="wine-header">
                             <h3 class="wine-name">${wine.name}</h3>
@@ -365,10 +386,9 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="wine-tags">${tagsHTML}</div>
                     </div>
                 </div>`;
+            wineItemsGrid.innerHTML += wineHTML;
         });
-        
-        const renderedHTML = await Promise.all(winePromises);
-        wineItemsGrid.innerHTML = renderedHTML.join('');
+
         lucide.createIcons();
     };
 
@@ -408,7 +428,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const product = menuData.products.find(p => p.id == productId);
         if (!product) return;
 
-        const imageUrl = await getProductImage(product);
+        const imageUrl = product.image || product.tempImage || `https://placehold.co/400x400/1a1a1a/ffffff?text=${encodeURIComponent(product.name)}`;
 
         let pairingHTML = '';
         if (product.pairing && product.pairing.length > 0) {
@@ -423,7 +443,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         detailsModalBody.innerHTML = `
             <div class="details-modal-body">
-                <img src="${imageUrl}" alt="${product.name}" class="details-image">
+                <img src="${imageUrl}" alt="${product.name}" class="details-image" loading="lazy" onerror="this.src='https.placehold.co/400x400/1a1a1a/ffffff?text=Aurum'">
                 <div class="details-info">
                     <h3 class="item-name">${product.name}</h3>
                     <p class="item-description">${product.description}</p>
