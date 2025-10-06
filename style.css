@@ -51,8 +51,8 @@ body {
 
 /* --- Layout Principal --- */
 .container {
-    max-w-5xl;
-    margin: 0 auto;
+    max-width: 1280px; /* Largura máxima para o conteúdo central */
+    margin: 0 auto; /* Centraliza o container */
     padding: 1rem;
 }
 
@@ -61,7 +61,7 @@ body {
     position: sticky;
     top: 0;
     z-index: 10;
-    padding: 1rem;
+    padding: 1rem 0;
     background: rgba(18, 18, 18, 0.7);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid rgba(212, 172, 110, 0.1);
@@ -130,7 +130,7 @@ body {
 /* --- Navegação de Categorias --- */
 .category-nav {
     position: sticky;
-    top: 130px; /* Ajuste conforme a altura do header */
+    top: 130px; 
     z-index: 9;
     background: rgba(18, 18, 18, 0.7);
     backdrop-filter: blur(12px);
@@ -140,14 +140,14 @@ body {
 .main-category-container {
     display: flex;
     gap: 1rem;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 0;
     border-bottom: 1px solid rgba(212, 172, 110, 0.1);
 }
 
 .sub-category-container {
     display: flex;
     gap: 0.5rem;
-    padding: 0.75rem 1rem;
+    padding: 0.75rem 0;
     overflow-x: auto;
     scrollbar-width: none; /* Firefox */
 }
@@ -204,8 +204,8 @@ body {
 
 .menu-items-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 1.25rem;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
 }
 
 .item-card {
@@ -329,5 +329,61 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+
+/* --- Media Queries for Responsiveness --- */
+
+/* Tablet e Telas Menores */
+@media (max-width: 1024px) {
+    .container {
+        padding: 0.75rem;
+    }
+    .main-header, .category-nav {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .restaurant-name {
+        font-size: 1.5rem;
+    }
+
+    .category-nav {
+        top: 125px; 
+    }
+    
+    .menu-items-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 1rem;
+    }
+
+    .floating-footer {
+        bottom: 1rem;
+        right: 1rem;
+        left: auto;
+        transform: none;
+    }
+
+    .main-category-btn {
+        font-size: 0.9rem;
+        padding: 0.4rem 1rem;
+    }
+    .sub-category-btn {
+        font-size: 0.8rem;
+        padding: 0.4rem 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .menu-items-grid {
+        grid-template-columns: 1fr; /* Uma coluna para telas bem pequenas */
+    }
+
+    .item-image {
+        height: 160px;
+    }
 }
 
