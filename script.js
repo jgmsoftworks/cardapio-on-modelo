@@ -130,7 +130,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         try {
             const query = encodeURIComponent(`${categoryName} gourmet food`);
-            // Pedimos mais imagens do que o necessário para ter variedade
             const response = await fetch(`https://api.unsplash.com/search/photos?query=${query}&per_page=${count > 20 ? 20 : count}&client_id=${UNSPLASH_API_KEY}`);
             if (!response.ok) throw new Error(`Erro na API Unsplash: ${response.statusText}`);
 
@@ -144,7 +143,6 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error(`Falha ao buscar imagens para a categoria ${categoryName}:`, error);
         }
         
-        // Retorno padrão em caso de falha
         return Array(count).fill(null).map((_, i) => `https://placehold.co/220x220/1a1a1a/ffffff?text=${encodeURIComponent(categoryName)}+${i+1}`);
     }
 
@@ -156,6 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const categoryTitleEl = document.getElementById('categoryTitle');
     const searchInput = document.getElementById('searchInput');
     const noResultsEl = document.getElementById('noResults');
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
     
     // --- Seletores Modal Vinhos ---
     const wineModal = document.getElementById('wineModal');
@@ -239,17 +238,15 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // --- Lógica Otimizada de Imagens ---
         const productsNeedingImage = productsToShow.filter(p => !p.image);
         if (productsNeedingImage.length > 0) {
             const fetchedImages = await fetchImagesForCategory(categoryName, productsNeedingImage.length);
             productsNeedingImage.forEach((product, index) => {
-                // Atribui uma imagem da lista de forma circular para garantir que todos recebam uma
                 product.tempImage = fetchedImages[index % fetchedImages.length];
             });
         }
 
-        menuItemsContainer.innerHTML = ''; // Limpa o loader
+        menuItemsContainer.innerHTML = '';
 
         productsToShow.forEach((product, index) => {
             const imageUrl = product.image || product.tempImage || `https://placehold.co/220x220/1a1a1a/ffffff?text=Aurum`;
@@ -453,13 +450,40 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // --- LÓGICA DO TEMA (CLARO/ESCURO) ---
+    const applyTheme = (theme) => {
+        if (theme === 'light') {
+            document.body.classList.add('light-theme');
+            themeToggleBtn.innerHTML = '<i data-lucide="moon"></i>';
+        } else {
+            document.body.classList.remove('light-theme');
+            themeToggleBtn.innerHTML = '<i data-lucide="sun"></i>';
+        }
+        lucide.createIcons(); // Recria os ícones após mudar o HTML
+    };
+
+    const toggleTheme = () => {
+        const currentThemeIsLight = document.body.classList.contains('light-theme');
+        const newTheme = currentThemeIsLight ? 'dark' : 'light';
+        localStorage.setItem('aurumTheme', newTheme);
+        applyTheme(newTheme);
+    };
+
+    themeToggleBtn.addEventListener('click', toggleTheme);
+
     // --- INICIALIZAÇÃO ---
+    const initialize = () => {
+        const savedTheme = localStorage.getItem('aurumTheme') || 'dark';
+        applyTheme(savedTheme);
+        renderAll();
+    };
+    
     const renderAll = () => {
         renderMainCategories();
         renderSubCategories();
         renderMenuItems();
     };
 
-    renderAll();
+    initialize();
 });
 
