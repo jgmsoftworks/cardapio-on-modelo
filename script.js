@@ -276,25 +276,29 @@ document.addEventListener('DOMContentLoaded', () => {
             renderAll();
         }
     });
-
-    openWineModalBtn.addEventListener('click', () => {
-        wineModal.classList.remove('hidden');
-        document.body.style.overflow = 'hidden'; // Impede o scroll do fundo
+    
+    // --- Lógica do Modal de Vinhos ---
+    const openWineModal = () => {
+        wineModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
         renderWineRegions();
         renderWines();
-    });
+        lucide.createIcons();
+    };
 
-    closeWineModalBtn.addEventListener('click', () => {
-        wineModal.classList.add('hidden');
-        document.body.style.overflow = ''; // Permite o scroll novamente
-    });
-    
+    const closeWineModal = () => {
+        wineModal.classList.remove('active');
+        document.body.style.overflow = '';
+    };
+
+    openWineModalBtn.addEventListener('click', openWineModal);
+    closeWineModalBtn.addEventListener('click', closeWineModal);
     wineModal.addEventListener('click', (e) => {
+        // Fecha se clicar no fundo escuro (o próprio modal)
         if (e.target === wineModal) {
-             closeWineModalBtn.click();
+            closeWineModal();
         }
     });
-
 
     // --- Inicialização ---
     const renderAll = () => {
