@@ -156,7 +156,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const categoryTitleEl = document.getElementById('categoryTitle');
     const searchInput = document.getElementById('searchInput');
     const noResultsEl = document.getElementById('noResults');
-    const cartCountEl = document.getElementById('cartCount');
     
     // --- Seletores Modal Vinhos ---
     const wineModal = document.getElementById('wineModal');
@@ -177,7 +176,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let activeMainCategory = menuData.mainCategories[0].id;
     let activeSubCategory = menuData.mainCategories[0].subCategories[0].id;
     let activeWineRegion = wineData.regions[0];
-    let cart = [];
 
     // --- FUNÇÕES DE RENDERIZAÇÃO (MENU PRINCIPAL) ---
     const renderMainCategories = () => {
@@ -270,7 +268,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                         <div class="item-footer">
                             <p class="item-price">R$ ${product.price.toFixed(2).replace('.', ',')}</p>
-                            <button class="add-to-cart-btn" data-product-id="${product.id}">+</button>
                         </div>
                     </div>
                 </div>`;
@@ -282,16 +279,8 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const attachCardEventListeners = () => {
-        document.querySelectorAll('.add-to-cart-btn').forEach(button => {
-            button.addEventListener('click', (e) => {
-                e.stopPropagation();
-                addToCart(button.dataset.productId);
-            });
-        });
-
         document.querySelectorAll('.item-card').forEach(card => {
-            card.addEventListener('click', (e) => {
-                if (e.target.closest('.add-to-cart-btn')) return;
+            card.addEventListener('click', () => {
                 openDetailsModal(card.dataset.productId);
             });
         });
@@ -392,16 +381,6 @@ document.addEventListener('DOMContentLoaded', () => {
         lucide.createIcons();
     };
 
-    // --- LÓGICA DO CARRINHO ---
-    const addToCart = (productId) => {
-        const product = menuData.products.find(p => p.id == productId);
-        if (product) {
-            cart.push(product);
-            updateCartCount();
-        }
-    };
-    const updateCartCount = () => { cartCountEl.textContent = cart.length; };
-
     // --- LÓGICA DOS MODAIS ---
     const openModal = (modalEl) => {
         modalEl.classList.add('active');
@@ -448,9 +427,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     <h3 class="item-name">${product.name}</h3>
                     <p class="item-description">${product.description}</p>
                     <p class="item-price">R$ ${product.price.toFixed(2).replace('.', ',')}</p>
-                    <button class="details-add-to-cart" data-product-id="${product.id}">
-                        <i data-lucide="plus"></i> Adicionar ao Pedido
-                    </button>
                     ${pairingHTML}
                 </div>
             </div>
@@ -458,11 +434,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         lucide.createIcons();
         openModal(detailsModal);
-
-        document.querySelector('.details-add-to-cart').addEventListener('click', (e) => {
-            addToCart(e.currentTarget.dataset.productId);
-            closeModal(detailsModal);
-        });
     };
     closeDetailsModalBtn.addEventListener('click', () => closeModal(detailsModal));
 
