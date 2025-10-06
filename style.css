@@ -216,73 +216,97 @@ body {
 }
 .menu-items-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
     gap: 1.5rem;
 }
 
-/* --- Animação de Entrada dos Itens --- */
+/* --- NOVO ESTILO DE CARD DE ITEM --- */
 @keyframes fadeInSlideUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 .item-card {
+    display: flex;
+    gap: 1rem;
     background: var(--bg-secondary);
     border-radius: 12px;
-    overflow: hidden;
     border: 1px solid rgba(212, 172, 110, 0.15);
     backdrop-filter: blur(8px);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
     animation: fadeInSlideUp 0.5s ease-out forwards;
-    opacity: 0; /* Inicia invisível para a animação */
+    opacity: 0;
+    overflow: hidden;
+    padding: 1rem;
 }
 
 .item-card:hover {
     transform: translateY(-8px) scale(1.02);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4), 0 0 15px rgba(142, 59, 70, 0.5);
 }
-.item-image-container { position: relative; }
-.item-image { width: 100%; height: 180px; object-fit: cover; }
 
-/* --- Destaque do Chef --- */
+.item-card-image {
+    width: 110px;
+    height: 110px;
+    flex-shrink: 0;
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.item-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
 .chef-suggestion {
     position: absolute;
-    top: 10px;
-    left: 10px;
+    top: 8px;
+    left: -15px;
     background: var(--accent-gold);
     color: var(--bg-primary);
-    padding: 0.3rem 0.6rem;
-    border-radius: 15px;
+    padding: 0.3rem 0.8rem 0.3rem 1.2rem;
     font-size: 0.7rem;
     font-weight: 700;
     display: flex;
     align-items: center;
     gap: 0.3rem;
     box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    transform: rotate(-45deg);
+    left: -25px;
+    top: -5px;
+    width: 120px;
+    justify-content: center;
+}
+.chef-suggestion i { display: none; } /* Ocultar o ícone para um visual mais limpo */
+
+
+.item-card-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
 }
 
-.item-details { padding: 1rem; }
 .item-name {
     font-size: 1.1rem;
     font-weight: 600;
     color: white;
     margin-bottom: 0.4rem;
 }
+
 .item-description {
     font-size: 0.8rem;
     color: var(--text-secondary);
-    min-height: 35px;
+    flex-grow: 1;
     margin-bottom: 0.8rem;
 }
+
 .item-footer { display: flex; justify-content: space-between; align-items: center; }
 .item-price { font-size: 1.25rem; font-weight: 700; color: var(--accent-gold); }
+
 .add-to-cart-btn {
     width: 36px; height: 36px; border-radius: 50%;
     background-color: var(--accent-gold);
@@ -571,12 +595,15 @@ body {
 
 
 /* --- Media Queries --- */
+@media (max-width: 900px) {
+    .menu-items-grid { grid-template-columns: 1fr; }
+}
+
 @media (max-width: 768px) {
     .restaurant-name { font-size: 1.5rem; }
     .category-nav { top: 180px; }
     .header-content { flex-wrap: wrap; }
     .wine-menu-btn { margin-left: 0; flex-grow: 1; text-align: center; justify-content: center; }
-    .menu-items-grid { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem; }
     .floating-footer { bottom: 1rem; right: 1rem; left: auto; transform: none; }
     .wine-card, .details-modal-body { flex-direction: column; }
     .details-modal-body { grid-template-columns: 1fr; }
@@ -587,7 +614,8 @@ body {
 }
 
 @media (max-width: 480px) {
-    .menu-items-grid { grid-template-columns: 1fr; }
     .category-nav { top: 170px; }
+    .item-card { flex-direction: column; align-items: flex-start; }
+    .item-card-image { width: 100%; height: 150px; }
 }
 
