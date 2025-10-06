@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- CHAVE DA API (IMPORTANTE!) ---
     // Registe-se em https://unsplash.com/developers para obter a sua chave gratuita
     // e cole-a aqui para que as imagens automáticas funcionem.
-    const UNSPLASH_API_KEY = 'diHk1eYC4W-mm41jPDsJBNmAozLoF8v0kHBpFLtT5BI'; 
+    const UNSPLASH_API_KEY = 'diHk1eYC4w-mm41jPDsJBNmAozLoF8v0kHBpFLtT5BI'; 
 
     // --- BASE DE DADOS SIMULADA ---
     // Deixei alguns produtos com "image: null" para que o sistema puxe as fotos automaticamente.
@@ -92,9 +92,30 @@ document.addEventListener('DOMContentLoaded', () => {
     const wineData = {
         regions: ['Argentina', 'Brasil', 'Chile', 'França', 'Itália', 'Portugal', 'Espanha'],
         wines: [
-             // Vinhos...
+             // Argentina
             { id: 101, region: 'Argentina', name: 'La Linda Torrontés', price: 153.00, volume: '750ml', description: 'Cor verde brilhante. Exótico e perfumado com notas de rosas e casca de laranja.', image: null, pairing: ['Peixes e Frutos do Mar', 'Saladas'], tags: [{ type: 'country', value: 'Argentina', icon: '🇦🇷' }, { type: 'color', value: 'Branco' }, { type: 'grape', value: 'Torrontés' }, { type: 'alcohol', value: '13.00%' }, { type: 'location', value: 'Lujan de Cuyo, Luigi Bosca' }] },
+            { id: 102, region: 'Argentina', name: 'La Linda Chardonnay', price: 159.00, volume: '750ml', description: 'Um vinho branco de cor amarelada brilhante com aromas expressivos de frutas tropicais.', image: null, pairing: ['Aves', 'Massas com Molho Branco'], tags: [{ type: 'country', value: 'Argentina', icon: '🇦🇷' }, { type: 'color', value: 'Branco' }, { type: 'grape', value: 'Chardonnay' }, { type: 'alcohol', value: '12.80%' }, { type: 'location', value: 'Mendoza, Luigi Bosca Wines' }] },
             { id: 103, region: 'Argentina', name: 'La Linda Malbec', price: 153.00, volume: '750ml', description: 'Coloração violácea, brilhante. No nariz exibe grande pureza de fruta, com notas de ameixa.', image: 'https://placehold.co/100x300/f5f5f5/333333?text=Vinho', pairing: ['Carnes Vermelhas', 'Queijos'], tags: [{ type: 'country', value: 'Argentina', icon: '🇦🇷' }, { type: 'color', value: 'Tinto' }, { type: 'grape', value: 'Malbec' }, { type: 'alcohol', value: '14.00%' }, { type: 'location', value: 'Mendoza, Luigi Bosca' }] },
+
+            // Brasil
+            { id: 104, region: 'Brasil', name: 'Bossa Moscatel', price: 98.00, volume: '750ml', description: 'Moscatel perfumado, de grande tipicidade. Cor limão claro, perlage abundante.', image: null, pairing: ['Sobremesas', 'Aperitivos'], tags: [{ type: 'country', value: 'Brasil', icon: '🇧🇷' }, { type: 'color', value: 'Espumante' }, { type: 'grape', value: 'Moscatel' }, { type: 'alcohol', value: '7.50%' }, { type: 'location', value: 'Serra Gaúcha, Vinícola Hermann' }] },
+            { id: 105, region: 'Brasil', name: 'Hermann Bossa Prosecco', price: 98.00, volume: '750ml', description: 'Com Amadurecimento de 20 dias sur lie, em tanques de inox, Bossa Prosecco é fresco e frutado.', image: null, pairing: ['Aperitivos', 'Peixes e Frutos do Mar'], tags: [{ type: 'country', value: 'Brasil', icon: '🇧🇷' }, { type: 'color', value: 'Espumante' }, { type: 'grape', value: 'Glera' }, { type: 'alcohol', value: '11.00%' }, { type: 'location', value: 'Serra Gaúcha, Hermann' }] },
+            
+            // Chile
+            { id: 107, region: 'Chile', name: 'Valle De Chillán Chardonnay', price: 99.90, volume: '750ml', description: 'Com uma coloração amarelo-palha brilhante, o vinho apresenta aromas de frutas tropicais.', image: null, pairing: ['Aves', 'Peixes e Frutos do Mar'], tags: [{ type: 'country', value: 'Chile', icon: '🇨🇱' }, { type: 'color', value: 'Branco' }, { type: 'grape', value: 'Chardonnay' }, { type: 'alcohol', value: '12.50%' }, { type: 'location', value: 'Maule, Valle Del Chile' }] },
+            { id: 109, region: 'Chile', name: 'Valle de Chillán Cabernet Sauvignon', price: 99.90, volume: '750ml', description: 'Com notas intensas de frutas vermelhas maduras, como ameixa e amora.', image: null, pairing: ['Carnes Vermelhas', 'Queijos'], tags: [{ type: 'country', value: 'Chile', icon: '🇨🇱' }, { type: 'color', value: 'Tinto' }, { type: 'grape', value: 'Cabernet Sauvignon' }, { type: 'alcohol', value: '13.00%' }, { type: 'location', value: 'Maule, vallado' }] },
+
+            // França
+            { id: 110, region: 'França', name: 'Paul Mas Claude Val Rouge', price: 152.00, volume: '750ml', description: 'A versão tinta do Claude Val segue o estilo que consagrou esta como uma das mais bem sucedidas marcas.', image: null, pairing: ['Carnes Vermelhas', 'Massas com Molho Vermelho'], tags: [{ type: 'country', value: 'França', icon: '🇫🇷' }, { type: 'color', value: 'Tinto' }, { type: 'grape', value: 'Carignan' }, { type: 'alcohol', value: '13.50%' }, { type: 'location', value: 'Languedoc-Roussillon' }] },
+
+            // Itália
+            { id: 111, region: 'Itália', name: 'Borgo Selene / Nero D\'Avola', price: 169.00, volume: '750ml', description: 'Este 100% Nero d\'Avola foi elaborado com uvas totalmente orgânicas de vinhedos da Sicília.', image: null, pairing: ['Carnes Vermelhas', 'Massas com Molho Vermelho'], tags: [{ type: 'country', value: 'Itália', icon: '🇮🇹' }, { type: 'color', value: 'Tinto' }, { type: 'grape', 'value': 'Nero d\'Avola' }, { type: 'alcohol', value: '13.00%' }, { type: 'location', value: 'Sicilia, Curatolo Arini' }] },
+            
+            // Portugal
+            { id: 112, region: 'Portugal', name: 'Tâmara White', price: 104.00, volume: '750ml', description: 'Cor palha com tons esverdeados. Nariz bem marcado com fruta tropical e notas cítricas.', image: null, pairing: ['Peixes e Frutos do Mar', 'Aperitivos'], tags: [{ type: 'country', value: 'Portugal', icon: '🇵🇹' }, { type: 'color', value: 'Branco' }, { type: 'grape', value: 'Arinto' }, { type: 'alcohol', 'value': '12.00%' }, { type: 'location', value: 'Tejo (Ribatejo), Falua' }] },
+            
+            // Espanha
+            { id: 114, region: 'Espanha', name: 'Rey de Copas', price: 85.00, volume: '750ml', description: 'Púrpura médio. Belíssima expressão de fruta da Tempranillo, com notas de ameixas e cerejas.', image: null, pairing: ['Carnes Vermelhas', 'Queijos'], tags: [{ type: 'country', value: 'Espanha', icon: '🇪🇸' }, { type: 'color', value: 'Tinto' }, { type: 'grape', value: 'Tempranillo' }, { type: 'alcohol', value: '12.00%' }, { type: 'location', value: 'Castile - La Mancha' }] },
         ]
     };
 
