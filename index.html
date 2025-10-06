@@ -3,52 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aurum - Menu de Luxo</title>
+    <title>Aurum - Menu Digital de Luxo</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
     <div class="background-animation"></div>
 
     <div class="container">
-        <!-- CABEÇALHO -->
         <header class="main-header">
             <div class="header-content">
-                <img src="https://placehold.co/100x100/121212/D4AC6E?text=Au" alt="Logo Aurum" class="logo">
+                <img src="https://placehold.co/100x100/D4AC6E/121212?text=Au" alt="Logo Aurum" class="logo">
                 <div>
                     <h1 class="restaurant-name">Aurum</h1>
                     <p class="restaurant-status">Aberto até às 23:00</p>
                 </div>
-                <button id="openWineModalBtn" class="wine-menu-btn">
+                <button class="wine-menu-btn" id="openWineModalBtn">
                     <i data-lucide="wine"></i>
-                    Carta de Vinhos
+                    <span>Carta de Vinhos</span>
                 </button>
             </div>
             <div class="search-wrapper">
-                <i class="search-icon" data-lucide="search"></i>
+                <i data-lucide="search" class="search-icon"></i>
                 <input type="text" id="searchInput" class="search-input" placeholder="Buscar no menu...">
             </div>
         </header>
 
-        <!-- NAVEGAÇÃO DE CATEGORIAS -->
         <nav class="category-nav">
             <div id="mainCategoryLinks" class="main-category-container"></div>
             <div id="subCategoryLinks" class="sub-category-container"></div>
         </nav>
-
-        <!-- CONTEÚDO DO MENU -->
+        
         <main class="menu-content">
             <h2 id="categoryTitle" class="category-title"></h2>
             <div id="menuItems" class="menu-items-grid">
-                <!-- Cards dos produtos serão inseridos aqui -->
+                <!-- Os itens do menu serão inseridos aqui pelo JavaScript -->
             </div>
             <p id="noResults" class="no-results">Nenhum item encontrado.</p>
         </main>
     </div>
 
-    <!-- RODAPÉ FLUTUANTE / CARRINHO -->
     <footer class="floating-footer">
         <button id="cartButton" class="cart-button">
             <i data-lucide="shopping-cart"></i>
@@ -56,26 +53,40 @@
         </button>
     </footer>
 
-    <!-- MODAL DA CARTA DE VINHOS -->
-    <div id="wineModal" class="wine-modal">
-        <div class="wine-modal-content">
-            <header class="wine-modal-header">
+    <!-- MODAL CARTA DE VINHOS -->
+    <div class="modal-overlay" id="wineModal">
+        <div class="modal-content">
+            <header class="modal-header">
                 <h2>Nossa Seleção de Vinhos</h2>
-                <button id="closeWineModalBtn" class="close-modal-btn">
-                    <i data-lucide="x" style="width: 32px; height: 32px;"></i>
-                </button>
+                <button class="close-modal-btn" id="closeWineModalBtn"><i data-lucide="x" style="width: 32px; height: 32px;"></i></button>
             </header>
-            <nav id="wineRegionNav" class="wine-region-nav"></nav>
-            <div id="wineItemsGrid" class="wine-items-grid">
-                <!-- Cards dos vinhos serão inseridos aqui -->
+            <div class="modal-body">
+                <nav id="wineRegionNav" class="wine-region-nav"></nav>
+                <div class="wine-filters">
+                    <label for="wineGrapeFilter">Filtrar por Uva:</label>
+                    <select id="wineGrapeFilter"></select>
+                    <label for="winePairingFilter">Harmonização:</label>
+                    <select id="winePairingFilter"></select>
+                </div>
+                <div id="wineItemsGrid" class="wine-items-grid"></div>
             </div>
         </div>
     </div>
 
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <script>
-      lucide.createIcons();
-    </script>
+    <!-- MODAL DETALHES DO PRATO -->
+    <div class="modal-overlay" id="detailsModal">
+        <div class="modal-content">
+             <header class="modal-header">
+                <h2>Detalhes do Prato</h2>
+                <button class="close-modal-btn" id="closeDetailsModalBtn"><i data-lucide="x" style="width: 32px; height: 32px;"></i></button>
+            </header>
+            <div class="modal-body" id="detailsModalBody">
+                <!-- Conteúdo dos detalhes do prato inserido pelo JS -->
+            </div>
+        </div>
+    </div>
+
+
     <script src="script.js"></script>
 </body>
 </html>
