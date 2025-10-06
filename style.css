@@ -1,28 +1,26 @@
 /* --- CONFIGURAÇÕES GLOBAIS E VARIÁVEIS --- */
 :root {
-    /* Tema Escuro (Padrão) */
-    --color-background: #1a1a1a;
-    --color-surface: #2c2c2c;
-    --color-primary-dark-theme: #c09a58;
-    --color-primary-dark-theme-dark: #a8854c;
-    --color-secondary-dark-theme: #8c3b4a;
+    /* Tema Escuro (Padrão) - "Noite" */
+    --color-background-dark-theme: #1a1a1a;
+    --color-surface-dark-theme: #2c2c2c;
+    --color-primary-dark-theme: #c09a58; /* Ouro */
+    --color-secondary-dark-theme: #8c3b4a; /* Marsala */
     --color-text-primary-dark-theme: #f5f5f5;
     --color-text-secondary-dark-theme: #a0a0a0;
     
-    /* Tema Claro */
-    --color-background-light-theme: #f5f5f5;
+    /* Tema Claro (Novo) - "Marfim & Marsala" */
+    --color-background-light-theme: #fdfaf6; /* Marfim/Pergaminho */
     --color-surface-light-theme: #ffffff;
-    --color-primary-light-theme: #8c3b4a;
-    --color-primary-light-theme-dark: #6d2e3a;
-    --color-secondary-light-theme: #c09a58;
-    --color-text-primary-light-theme: #1a1a1a;
+    --color-primary-light-theme: #8c3b4a; /* Marsala como primário */
+    --color-secondary-light-theme: #c09a58; /* Ouro como secundário */
+    --color-text-primary-light-theme: #3a3a3a; /* Castanho Escuro */
     --color-text-secondary-light-theme: #666666;
     
-    /* Variáveis Dinâmicas */
-    --bg: var(--color-background);
-    --surface: var(--color-surface);
+    /* Variáveis Dinâmicas - Padrão é o tema escuro */
+    --bg: var(--color-background-dark-theme);
+    --surface: var(--color-surface-dark-theme);
     --primary: var(--color-primary-dark-theme);
-    --primary-dark: var(--color-primary-dark-theme-dark);
+    --primary-dark: color-mix(in srgb, var(--primary) 85%, black);
     --secondary: var(--color-secondary-dark-theme);
     --text-primary: var(--color-text-primary-dark-theme);
     --text-secondary: var(--color-text-secondary-dark-theme);
@@ -39,12 +37,12 @@ body.light-theme {
     --bg: var(--color-background-light-theme);
     --surface: var(--color-surface-light-theme);
     --primary: var(--color-primary-light-theme);
-    --primary-dark: var(--color-primary-light-theme-dark);
+    --primary-dark: color-mix(in srgb, var(--primary) 85%, black);
     --secondary: var(--color-secondary-light-theme);
     --text-primary: var(--color-text-primary-light-theme);
     --text-secondary: var(--color-text-secondary-light-theme);
-    --shadow-light: 0 4px 15px rgba(0, 0, 0, 0.1);
-    --shadow-heavy: 0 8px 30px rgba(0, 0, 0, 0.15);
+    --shadow-light: 0 4px 20px rgba(0, 0, 0, 0.08);
+    --shadow-heavy: 0 8px 30px rgba(0, 0, 0, 0.12);
 }
 
 * {
@@ -59,25 +57,20 @@ body {
     color: var(--text-primary);
     line-height: 1.6;
     overflow-x: hidden;
-    background: radial-gradient(circle at 10% 20%, rgba(192, 154, 88, 0.1), transparent 50%),
-                radial-gradient(circle at 80% 90%, rgba(140, 59, 74, 0.1), transparent 50%);
-    background-attachment: fixed;
     transition: background-color 0.4s, color 0.4s;
 }
 
+/* --- EFEITO DE TRANSIÇÃO SUAVE EM ELEMENTOS-CHAVE --- */
 .main-header, .logo-icon, .search-bar input, .wine-modal-btn, .main-category-btn, .sub-category-btn, .item-card, .modal-content, .wine-card, .filter-group select, .theme-toggle-btn {
     transition: var(--transition-smooth), background-color 0.4s, color 0.4s, border-color 0.4s;
 }
 
-
-/* --- LAYOUT PRINCIPAL --- */
 #app-container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 2rem;
 }
 
-/* --- CABEÇALHO --- */
 .main-header {
     display: flex;
     justify-content: space-between;
@@ -105,6 +98,7 @@ body {
     font-family: var(--font-secondary);
     font-size: 2rem;
     font-weight: 600;
+    color: var(--text-primary);
 }
 .logo-text p {
     color: var(--text-secondary);
@@ -126,6 +120,9 @@ body {
     color: var(--text-primary);
     font-family: var(--font-primary);
     width: 250px;
+}
+.search-bar input::placeholder {
+    color: var(--text-secondary);
 }
 .search-bar input:focus {
     outline: none;
@@ -178,7 +175,6 @@ body {
     transform: rotate(15deg);
 }
 
-/* --- NAVEGAÇÃO DE CATEGORIAS --- */
 .main-nav { margin-bottom: 2.5rem; }
 .main-categories, .sub-categories { display: flex; gap: 0.5rem; flex-wrap: wrap; }
 .main-categories {
@@ -199,7 +195,7 @@ body {
 }
 .main-category-btn:hover, .sub-category-btn:hover {
     color: var(--text-primary);
-    background-color: var(--surface);
+    background-color: color-mix(in srgb, var(--surface) 80%, transparent);
 }
 .main-category-btn.active {
     color: var(--primary);
@@ -215,19 +211,15 @@ body {
     background-color: var(--primary);
 }
 .sub-category-btn.active {
-    background-color: var(--secondary);
-    color: #fff;
-}
-body.light-theme .sub-category-btn.active {
+    background-color: var(--primary);
     color: var(--bg);
 }
 
-
-/* --- GRELHA DE PRODUTOS --- */
 .category-title {
     font-family: var(--font-secondary);
     font-size: 2.5rem;
     margin-bottom: 2rem;
+    color: var(--text-primary);
 }
 .menu-grid {
     display: grid;
@@ -303,7 +295,7 @@ body.light-theme .sub-category-btn.active {
     align-items: center;
     margin-top: auto;
 }
-.item-price { font-size: 1.1rem; font-weight: 600; }
+.item-price { font-size: 1.1rem; font-weight: 600; color: var(--text-primary); }
 .no-results { text-align: center; padding: 3rem; color: var(--text-secondary); }
 .loader {
     width: 48px;
@@ -321,14 +313,13 @@ body.light-theme .sub-category-btn.active {
     100% { transform: rotate(360deg); }
 }
 
-/* --- MODAIS (GERAL) --- */
 .modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.7);
+    background: color-mix(in srgb, var(--bg) 50%, transparent);
     backdrop-filter: blur(10px);
     display: flex;
     justify-content: center;
@@ -369,7 +360,6 @@ body.light-theme .sub-category-btn.active {
     transform: rotate(90deg);
 }
 
-/* --- MODAL DA CARTA DE VINHOS --- */
 .modal-title {
     font-family: var(--font-secondary);
     font-size: 2.8rem;
@@ -452,7 +442,6 @@ body.light-theme .sub-category-btn.active {
 }
 .wine-tag span { font-size: 1rem; }
 
-/* --- MODAL DE DETALHES DO PRATO --- */
 .details-modal-body { display: flex; gap: 2.5rem; }
 .details-image {
     width: 300px;
@@ -475,7 +464,6 @@ body.light-theme .sub-category-btn.active {
 }
 .pairing-list { list-style: none; color: var(--text-secondary); }
 
-/* --- RESPONSIVIDADE --- */
 @media (max-width: 900px) {
     .menu-grid { grid-template-columns: 1fr; }
 }
