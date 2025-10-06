@@ -451,6 +451,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // --- LÓGICA DO TEMA (CLARO/ESCURO) ---
+    const renderLucideIcons = () => {
+        if (window.lucide && typeof window.lucide.createIcons === 'function') {
+            window.lucide.createIcons();
+        }
+    };
+
     const applyTheme = (theme) => {
         if (theme === 'light') {
             document.body.classList.add('light-theme');
@@ -459,7 +465,7 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.classList.remove('light-theme');
             themeToggleBtn.innerHTML = '<i data-lucide="sun"></i>';
         }
-        lucide.createIcons(); // Recria os ícones após mudar o HTML
+        renderLucideIcons(); // Recria os ícones após mudar o HTML
     };
 
     const toggleTheme = () => {
@@ -476,6 +482,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const savedTheme = localStorage.getItem('aurumTheme') || 'dark';
         applyTheme(savedTheme);
         renderAll();
+        renderLucideIcons();
     };
     
     const renderAll = () => {
