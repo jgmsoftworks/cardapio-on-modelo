@@ -2,6 +2,7 @@
 :root {
     --bg-primary: #121212;
     --bg-secondary: rgba(28, 28, 28, 0.6);
+    --bg-modal: rgba(18, 18, 18, 0.95);
     --text-primary: #f0e6d2;
     --text-secondary: #a89f91;
     --accent-marsala: #8E3B46;
@@ -218,6 +219,19 @@ body {
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 1.5rem;
 }
+
+/* --- Animação de Entrada dos Itens --- */
+@keyframes fadeInSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .item-card {
     background: var(--bg-secondary);
     border-radius: 12px;
@@ -225,12 +239,35 @@ body {
     border: 1px solid rgba(212, 172, 110, 0.15);
     backdrop-filter: blur(8px);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    animation: fadeInSlideUp 0.5s ease-out forwards;
+    opacity: 0; /* Inicia invisível para a animação */
 }
+
 .item-card:hover {
-    transform: translateY(-8px);
+    transform: translateY(-8px) scale(1.02);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4), 0 0 15px rgba(142, 59, 70, 0.5);
 }
+.item-image-container { position: relative; }
 .item-image { width: 100%; height: 180px; object-fit: cover; }
+
+/* --- Destaque do Chef --- */
+.chef-suggestion {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: var(--accent-gold);
+    color: var(--bg-primary);
+    padding: 0.3rem 0.6rem;
+    border-radius: 15px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
 .item-details { padding: 1rem; }
 .item-name {
     font-size: 1.1rem;
@@ -257,25 +294,8 @@ body {
 .add-to-cart-btn:hover { transform: scale(1.1); box-shadow: 0 0 10px var(--accent-gold); }
 .no-results { display: none; text-align: center; padding: 3rem; font-size: 1.1rem; color: var(--text-secondary); }
 
-/* --- Rodapé Flutuante / Carrinho --- */
-.floating-footer { position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%); z-index: 100; }
-.cart-button {
-    width: 55px; height: 55px; border-radius: 50%;
-    background-color: var(--accent-marsala); color: white; border: none;
-    cursor: pointer; display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 0 20px rgba(142, 59, 70, 0.8);
-    transition: all 0.3s ease;
-}
-.cart-button:hover { transform: scale(1.1); }
-.cart-count {
-    position: absolute; top: -5px; right: -5px;
-    background-color: var(--accent-gold); color: var(--bg-primary);
-    border-radius: 50%; width: 22px; height: 22px; font-size: 0.75rem;
-    font-weight: bold; display: flex; align-items: center; justify-content: center;
-}
-
-/* --- CARTA DE VINHOS (MODAL) --- */
-.wine-modal {
+/* --- MODAL (Base para Vinhos e Detalhes) --- */
+.modal-overlay {
     position: fixed;
     top: 0; left: 0;
     width: 100%; height: 100%;
@@ -286,27 +306,42 @@ body {
     opacity: 0;
     visibility: hidden;
     transition: opacity 0.4s ease, visibility 0.4s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-.wine-modal.active {
+.modal-overlay.active {
     opacity: 1;
     visibility: visible;
 }
-.wine-modal-content {
-    max-width: 1280px;
-    margin: 2rem auto;
-    padding: 1rem;
+.modal-content {
+    background: var(--bg-modal);
+    border: 1px solid rgba(212, 172, 110, 0.1);
+    border-radius: 12px;
+    max-width: 90%;
+    width: 100%;
+    position: relative;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    animation: modal-scale-in 0.4s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
 }
-.wine-modal-header {
+
+@keyframes modal-scale-in {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-bottom: 1.5rem;
+    padding: 1.5rem;
     border-bottom: 1px solid rgba(212, 172, 110, 0.2);
-    margin-bottom: 1.5rem;
 }
-.wine-modal-header h2 {
+.modal-header h2 {
     font-family: var(--font-serif);
-    font-size: 2.5rem;
+    font-size: 2.2rem;
     color: white;
 }
 .close-modal-btn {
@@ -320,6 +355,32 @@ body {
 .close-modal-btn:hover {
     color: var(--accent-gold);
     transform: scale(1.2) rotate(90deg);
+}
+.modal-body {
+    padding: 1.5rem;
+    overflow-y: auto;
+}
+
+/* --- CARTA DE VINHOS (MODAL) --- */
+#wineModal .modal-content { max-width: 1280px; }
+.wine-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    align-items: center;
+}
+.wine-filters label {
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+.wine-filters select {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+    border: 1px solid rgba(212, 172, 110, 0.2);
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    font-family: var(--font-family);
 }
 
 .wine-region-nav {
@@ -362,7 +423,10 @@ body {
     border: 1px solid rgba(212, 172, 110, 0.1);
     background: rgba(255, 255, 255, 0.02);
     border-radius: 8px;
+    transition: background-color 0.3s;
 }
+.wine-card:hover { background-color: rgba(255, 255, 255, 0.05); }
+
 .wine-image {
     width: 60px;
     height: auto;
@@ -413,12 +477,100 @@ body {
     height: 14px;
 }
 
+/* --- MODAL DETALHES DO PRATO --- */
+#detailsModal .modal-content {
+    max-width: 800px;
+}
+
+.details-modal-body {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.details-image {
+    width: 100%;
+    border-radius: 8px;
+    object-fit: cover;
+    max-height: 400px;
+}
+
+.details-info .item-name {
+    font-family: var(--font-serif);
+    font-size: 2rem;
+    color: white;
+}
+
+.details-info .item-description {
+    font-size: 1rem;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+}
+
+.details-info .item-price {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+}
+
+.details-add-to-cart {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: var(--accent-gold);
+    color: var(--bg-primary);
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.details-add-to-cart:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 15px var(--accent-gold);
+}
+
+.wine-pairing {
+    margin-top: 2rem;
+    border-top: 1px solid rgba(212, 172, 110, 0.2);
+    padding-top: 1.5rem;
+}
+
+.wine-pairing h4 {
+    font-family: var(--font-serif);
+    font-size: 1.3rem;
+    color: white;
+    margin-bottom: 1rem;
+}
+.pairing-list {
+    list-style: none;
+}
+.pairing-item {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+}
+
+/* --- Rodapé Flutuante / Carrinho --- */
+.floating-footer { position: fixed; bottom: 1.5rem; left: 50%; transform: translateX(-50%); z-index: 100; }
+.cart-button {
+    width: 55px; height: 55px; border-radius: 50%;
+    background-color: var(--accent-marsala); color: white; border: none;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 0 20px rgba(142, 59, 70, 0.8);
+    transition: all 0.3s ease;
+}
+.cart-button:hover { transform: scale(1.1); }
+.cart-count {
+    position: absolute; top: -5px; right: -5px;
+    background-color: var(--accent-gold); color: var(--bg-primary);
+    border-radius: 50%; width: 22px; height: 22px; font-size: 0.75rem;
+    font-weight: bold; display: flex; align-items: center; justify-content: center;
+}
+
 
 /* --- Media Queries --- */
-@media (max-width: 1024px) {
-    .container, .wine-modal-content { padding: 0.75rem; }
-    .main-header, .category-nav { padding-left: 0; padding-right: 0; }
-}
 @media (max-width: 768px) {
     .restaurant-name { font-size: 1.5rem; }
     .category-nav { top: 180px; }
@@ -426,17 +578,16 @@ body {
     .wine-menu-btn { margin-left: 0; flex-grow: 1; text-align: center; justify-content: center; }
     .menu-items-grid { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem; }
     .floating-footer { bottom: 1rem; right: 1rem; left: auto; transform: none; }
-    .main-category-btn { font-size: 0.9rem; padding: 0.4rem 1rem; }
-    .sub-category-btn { font-size: 0.8rem; padding: 0.4rem 0.9rem; }
-    .wine-modal-header h2 { font-size: 1.8rem; }
-    .wine-card { flex-direction: column; align-items: flex-start; }
+    .wine-card, .details-modal-body { flex-direction: column; }
+    .details-modal-body { grid-template-columns: 1fr; }
     .wine-header { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
-    .wine-price-volume { text-align: left; }
     .wine-image { align-self: center; margin-bottom: 1rem; }
+    .modal-header h2 { font-size: 1.8rem; }
+    .details-info .item-name { font-size: 1.5rem; }
 }
+
 @media (max-width: 480px) {
     .menu-items-grid { grid-template-columns: 1fr; }
-    .item-image { height: 160px; }
     .category-nav { top: 170px; }
 }
 
