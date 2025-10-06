@@ -1,73 +1,71 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aurum Menu - Experiência de Luxo</title>
-
-    <!-- Google Fonts: Poppins -->
+    <title>Aurum - Menu</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Ícones (Lucide Icons) -->
-    <script src="https://unpkg.com/lucide@latest"></script>
-
-    <!-- Folha de Estilos CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/lucide-static@latest/bundle/lucide.js"></script>
 </head>
 <body>
-
-    <!-- Fundo animado -->
     <div class="background-animation"></div>
 
-    <div id="app" class="container">
-        <!-- Cabeçalho Fixo -->
+    <div class="container">
         <header class="main-header">
-            <div class="header-content">
-                <img src="https://placehold.co/80x80/1a1a1a/D4AC6E?text=Au" alt="Logo do Restaurante" class="logo">
+             <div class="header-content">
+                <img src="https://placehold.co/100x100/121212/D4AC6E?text=Au" alt="Logo Aurum" class="logo">
                 <div>
                     <h1 class="restaurant-name">Aurum</h1>
                     <p class="restaurant-status">Aberto até às 23:00</p>
                 </div>
+                 <button class="wine-menu-btn" id="openWineModalBtn">
+                    <i data-lucide="grape"></i>
+                    <span>Carta de Vinhos</span>
+                </button>
             </div>
             <div class="search-wrapper">
-                <i data-lucide="search" class="search-icon"></i>
-                <input id="searchInput" type="text" placeholder="Buscar no menu..." class="search-input">
+                <i class="search-icon" data-lucide="search"></i>
+                <input type="text" id="searchInput" class="search-input" placeholder="Buscar no menu...">
             </div>
         </header>
 
-        <!-- Navegação de Categorias -->
-        <nav id="categoryNav" class="category-nav">
-            <div id="mainCategoryLinks" class="main-category-container">
-                <!-- Links das categorias principais -->
-            </div>
-            <div id="subCategoryLinks" class="sub-category-container">
-                <!-- Links das subcategorias -->
-            </div>
+        <nav class="category-nav">
+            <div id="mainCategoryLinks" class="main-category-container"></div>
+            <div id="subCategoryLinks" class="sub-category-container"></div>
         </nav>
 
-        <!-- Conteúdo Principal do Cardápio -->
         <main class="menu-content">
             <h2 id="categoryTitle" class="category-title"></h2>
-            <div id="menuItems" class="menu-items-grid">
-                <!-- Itens do cardápio serão inseridos aqui -->
-            </div>
+            <div id="menuItems" class="menu-items-grid"></div>
             <div id="noResults" class="no-results">
-                <p>Nenhum item encontrado para sua busca.</p>
+                <p>Nenhum item encontrado.</p>
             </div>
         </main>
-
-        <!-- Botão Flutuante do Carrinho -->
-        <footer class="floating-footer">
-            <button id="cartButton" class="cart-button">
-                <i data-lucide="shopping-cart"></i>
-                <span id="cartCount" class="cart-count">0</span>
-            </button>
-        </footer>
     </div>
 
-    <!-- Script JavaScript -->
+    <footer class="floating-footer">
+        <button class="cart-button" id="cartButton">
+            <i data-lucide="shopping-cart"></i>
+            <span id="cartCount" class="cart-count">0</span>
+        </button>
+    </footer>
+    
+    <!-- Modal da Carta de Vinhos -->
+    <div id="wineModal" class="wine-modal hidden">
+        <div class="wine-modal-content">
+            <header class="wine-modal-header">
+                <h2>Nossa Seleção de Vinhos</h2>
+                <button class="close-modal-btn" id="closeWineModalBtn"><i data-lucide="x"></i></button>
+            </header>
+            <nav id="wineRegionNav" class="wine-region-nav"></nav>
+            <div id="wineItemsGrid" class="wine-items-grid"></div>
+        </div>
+    </div>
+
+
     <script src="script.js"></script>
 </body>
 </html>
